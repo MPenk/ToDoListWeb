@@ -1,0 +1,45 @@
+﻿@model List<TaskModel>
+
+<div class="container">
+
+    @using (Html.BeginForm("Index", "Home"))
+    {
+
+        <div class="row">
+            <input name="button" id="btnExportPDF" type="submit" value="Eksport do PDF" class="m-3 ml-5" />
+            <input name="button" id="btnExportDOCX" type="submit" value="Eksport do DOCX" class="m-3" />
+        </div>
+        <div class="row">
+            <input type="button" onclick='selectAll()' value="Zaznacz wszystkie" class="m-3 ml-5" />
+            <input type="button" onclick='UnSelectAll()' value="Odznacz wszystkie" class="m-3" />
+        </div>
+        @for (int i = 0; i < Model.Count(); i++)
+        {
+            <div class="row mx-3 my-3">
+                <div class="col">
+                    @Html.CheckBoxFor(m => m[i].Checked, new { Class = "checkbox" })
+                    @Html.HiddenFor(m => m[i].TaskName)
+                    @Html.DisplayFor(m => m[i].TaskName)
+                </div>
+            </div>
+        }
+
+    }
+</div>
+<script type="text/javascript">
+    function selectAll() {
+        var items = document.getElementsByClassName('checkbox');
+        for (var i = 0; i < items.length; i++) {
+            if (items[i].type == 'checkbox')
+                items[i].checked = true;
+        }
+    }
+
+    function UnSelectAll() {
+        var items = document.getElementsByClassName('checkbox');
+        for (var i = 0; i < items.length; i++) {
+            if (items[i].type == 'checkbox')
+                items[i].checked = false;
+        }
+    }
+</script>
